@@ -50,3 +50,4 @@ _Remix IDE Team_
 
 "# Smart-Contract-" 
 "# STUDENT-FEES-SMARTCONTRACT" 
+"# STUDENT-FEES-SMARTCONTRAC" 
