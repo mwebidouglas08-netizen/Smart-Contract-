@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>StudentFees — On-Chain Fee Ledger</title>
+<meta name="description" content="Pay and verify student fees on-chain via the StudentFees smart contract.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="grain"></div>
+
+<header class="topbar">
+  <div class="brand">
+    <span class="brand-mark">SF</span>
+    <span class="brand-name">Student<em>Fees</em></span>
+  </div>
+  <div class="wallet-area">
+    <span id="networkPill" class="pill pill-hidden">Sepolia</span>
+    <button id="connectBtn" class="btn btn-connect">Connect Wallet</button>
+  </div>
+</header>
+
+<main>
+
+  <section class="hero">
+    <p class="eyebrow">On-chain payment ledger · udentFees.sol</p>
+    <h1>Every fee payment,<br>stamped to the chain.</h1>
+    <p class="hero-sub">Pay tuition, library, and exam fees straight to the contract. No middleman ledger to lose, no receipt to misplace — just an immutable stub with your student ID on it.</p>
+
+    <div class="stat-row">
+      <div class="stat-card">
+        <span class="stat-label">Contract balance</span>
+        <span class="stat-value" id="statBalance">—</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-label">Payments recorded</span>
+        <span class="stat-value" id="statCount">—</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-label">Contract owner</span>
+        <span class="stat-value stat-mono" id="statOwner">—</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="split">
+
+    <!-- Receipt-styled payment form -->
+    <div class="receipt">
+      <div class="receipt-notch top"></div>
+      <h2>New Payment</h2>
+      <p class="receipt-hint">Fill this stub in. It gets torn onto the blockchain the moment you confirm in your wallet.</p>
+
+      <form id="payForm">
+        <label>
+          Student ID
+          <input type="text" id="studentId" placeholder="e.g. STU001" required>
+        </label>
+
+        <label>
+          Fee type
+          <select id="feeType" required>
+            <option value="" disabled selected>Select a fee</option>
+            <option value="Tuition">Tuition</option>
+            <option value="Library">Library</option>
+            <option value="Exam">Exam</option>
+            <option value="Hostel">Hostel</option>
+            <option value="Other">Other</option>
+          </select>
+        </label>
+
+        <label>
+          Amount (ETH)
+          <input type="number" id="amount" min="0" step="0.0001" placeholder="0.01" required>
+        </label>
+
+        <button type="submit" class="btn btn-primary" id="payBtn">Pay Fee</button>
+      </form>
+
+      <p class="status-line" id="payStatus"></p>
+      <div class="receipt-notch bottom"></div>
+    </div>
+
+    <!-- Lookup card -->
+    <div class="lookup">
+      <h2>Check a record</h2>
+      <p class="lookup-hint">Look up whether a student has already settled a given fee.</p>
+
+      <form id="lookupForm">
+        <label>
+          Student ID
+          <input type="text" id="lookupStudentId" placeholder="e.g. STU001" required>
+        </label>
+        <label>
+          Fee type
+          <select id="lookupFeeType" required>
+            <option value="" disabled selected>Select a fee</option>
+            <option value="Tuition">Tuition</option>
+            <option value="Library">Library</option>
+            <option value="Exam">Exam</option>
+            <option value="Hostel">Hostel</option>
+            <option value="Other">Other</option>
+          </select>
+        </label>
+        <button type="submit" class="btn btn-secondary">Check Status</button>
+      </form>
+      <p class="status-line" id="lookupStatus"></p>
+
+      <div class="owner-panel" id="ownerPanel" hidden>
+        <hr>
+        <h3>Owner controls</h3>
+        <p class="lookup-hint">Connected wallet matches the contract owner.</p>
+        <button id="withdrawBtn" class="btn btn-owner">Withdraw all funds</button>
+        <p class="status-line" id="withdrawStatus"></p>
+      </div>
+    </div>
+
+  </section>
+
+  <section class="ledger-section">
+    <div class="ledger-head">
+      <h2>Payment Ledger</h2>
+      <button id="refreshBtn" class="btn btn-ghost">Refresh</button>
+    </div>
+    <div class="table-wrap">
+      <table class="ledger-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Student ID</th>
+            <th>Fee Type</th>
+            <th>Amount</th>
+            <th>Payer</th>
+            <th>Time</th>
+          </tr>
+        </thead>
+        <tbody id="ledgerBody">
+          <tr><td colspan="6" class="empty-row">Connect a wallet to load the ledger.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <p>StudentFees dApp · deployed by Daggy Techs · contract source: <code>udentFees.sol</code></p>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/6.13.4/ethers.umd.min.js"></script>
+<script src="config.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
