@@ -49,3 +49,4 @@ Happy coding! 🚀
 _Remix IDE Team_
 
 "# Smart-Contract-" 
+"# STUDENT-FEES-SMARTCONTRACT" 
